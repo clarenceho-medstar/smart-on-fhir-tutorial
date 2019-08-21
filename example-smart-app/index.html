@@ -154,7 +154,7 @@
 				$("#medStatementDiv").html(retString);
 			});
 			//--- add AND
-			patientApi.fetchAll({type:'AllergyIntolerance',query:{status:{$and: ['active','confirmed']}}}).then(function(response) {
+			patientApi.fetchAll({type:'AllergyIntolerance',query:{status:{$and: ['confirmed']}}}).then(function(response) {
 				var retString = "<table class='dataTable'>";
 				response.forEach(function(allObj,idx){
 					retString += 

@@ -165,6 +165,25 @@
 				retString += "</table>";
 				$("#allergyDiv").html(retString);
 			});
+			
+						//--- UL device begin ---
+			patientApi.fetchAll({type:'Device'}).then(function(response) {
+				console.log(response);
+				var retString = "<table class='dataTable'>";
+				response.forEach(function(devObj,idx){
+					retString += 
+						"<tr>"+
+							"<td>"+devObj.type.text+"</td>"+
+							"<td>"+devObj.model+"</td>"+
+							"<td>"+devObj.manufactureDate+"</td>"+
+						"</tr>";
+				});
+				retString += "</table>";
+				$("#deviceDiv").html(retString);
+			});
+			//--- UL device end ---
+			
+			
 			var lookbackDate = new Date();
 			lookbackDate.setMonth(lookbackDate.getMonth()-6);
 			var month = (lookbackDate.getMonth()+1 < 10)?"0"+(lookbackDate.getMonth()+1):lookbackDate.getMonth()+1;

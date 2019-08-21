@@ -153,7 +153,8 @@
 				retString += "</table>";
 				$("#medStatementDiv").html(retString);
 			});
-			patientApi.fetchAll({type:'AllergyIntolerance',query:{status:'active'}}).then(function(response) {
+			//--- add AND
+			patientApi.fetchAll({type:'AllergyIntolerance',query:{status:{$and: ['active','confirmed']}}}).then(function(response) {
 				var retString = "<table class='dataTable'>";
 				response.forEach(function(allObj,idx){
 					retString += 
@@ -166,7 +167,8 @@
 				$("#allergyDiv").html(retString);
 			});
 			
-						//--- UL device begin ---
+			
+			//--- UL device begin ---
 			patientApi.fetchAll({type:'Device'}).then(function(response) {
 				console.log(response);
 				var retString = "<table class='dataTable'>";

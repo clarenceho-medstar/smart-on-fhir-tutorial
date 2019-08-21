@@ -1,26 +1,3 @@
-Skip to content
- 
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@clarenceho-medstar 
-Learn Git and GitHub without any code!
-Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
-
- 
-0
-0 1,495 clarenceho-medstar/smart-on-fhir-tutorial
-forked from cerner/smart-on-fhir-tutorial
- Code  Pull requests 0  Projects 0  Security  Insights  Settings
-smart-on-fhir-tutorial/example-smart-app/lib/js/fhir-client-v0.1.12.js
- Zach Plata publish: Update fhir client library to latest distributed file (cerne…
-1688ba0 on Oct 6, 2017
-17725 lines (14804 sloc)  480 KB
-    
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -274,8 +251,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var results;
 	      results = [];
 	      for (k in m) {
-	        v = m[k];
-	        results.push([k, v]);
+			v = m[k];
+			if (k === "_id") {
+				results = [[k, v]];
+				break;
+			}
+			else {
+				results.push([k, v]);
+			}
 	      }
 	      return results;
 	    })()).reduce(fn, acc);
@@ -387,6 +370,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @name JavaScript/NodeJS Merge v1.1.3
 	 * @author yeikos
 	 * @repository https://github.com/yeikos/js.merge
+
 	 * Copyright 2014 yeikos - MIT license
 	 * https://raw.github.com/yeikos/js.merge/master/LICENSE
 	 */
@@ -3058,9 +3042,12 @@ code.google.com/p/crypto-js/wiki/License
 */
 /** @preserve
 (c) 2012 by Cédric Mesnil. All rights reserved.
+
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
     - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
     - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -10746,6 +10733,7 @@ var data_user = new Data();
 
 /*
 	Implementation Summary
+
 	1. Enforce API surface and semantic compatibility with 1.9.x branch
 	2. Improve the module's maintainability by reducing the storage
 		paths to a single mechanism.
@@ -17243,7 +17231,8 @@ BBClient.ready = function(input, callback, errback){
 
     var fhirClientParams = {
       serviceUrl: state.provider.url,
-      patientId: tokenResponse.patient
+      patientId: tokenResponse.patient,
+      encounterId: tokenResponse.encounter
     };
     
     if (tokenResponse.id_token) {
@@ -17517,7 +17506,9 @@ function FhirClient(p) {
     
     if (p.patientId) {
         client.patient = {};
+		client.encounter = {};
         client.patient.id = p.patientId;
+		client.encounter.id = p.encounterId;
         client.patient.api = fhir({
             baseUrl: server.serviceUrl,
             auth: auth,
@@ -17740,4 +17731,3 @@ utils.units = {
 
 
 },{}]},{},[44]);
-
